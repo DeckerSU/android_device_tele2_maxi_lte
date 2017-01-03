@@ -7,13 +7,14 @@ LOCAL_SRC_FILES := \
     mtk_omx.cpp \
     icu55.c \
     icu53.c \
-    ssl.c 
+    ssl.c \
 
 # only for 32bit libraries
 LOCAL_SRC_FILES_32 := mtk_string.cpp
+LOCAL_SRC_FILES_32 += mtk_wvm32.cpp
 # only for 64bit libraries
 LOCAL_SRC_FILES_64 := mtk_parcel.cpp
-LOCAL_SRC_FILES_64 += mtk_wvm.cpp
+LOCAL_SRC_FILES_64 += mtk_wvm64.cpp
 
 
 LOCAL_SHARED_LIBRARIES := libbinder libutils liblog libgui libui \
