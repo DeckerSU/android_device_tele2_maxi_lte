@@ -1,0 +1,53 @@
+From d07cd7ae20511e588a44ac4808fa2ba6453e78de Mon Sep 17 00:00:00 2001
+From: DeckerSU <support@decker.su>
+Date: Tue, 3 Jan 2017 19:50:47 +0300
+Subject: [PATCH 1/2] Add depreciated symbols needed by old mali blobs
+
+Change-Id: I8610f8d4238809660f4c4d08924717a4f5cad51d
+---
+ libutils/Android.mk        |  2 ++
+ libutils/MediatekHacks.cpp | 18 ++++++++++++++++++
+ 2 files changed, 20 insertions(+)
+ create mode 100644 libutils/MediatekHacks.cpp
+
+diff --git a/libutils/Android.mk b/libutils/Android.mk
+index 84bac32..b09504d 100644
+--- a/libutils/Android.mk
++++ b/libutils/Android.mk
+@@ -74,6 +74,8 @@ LOCAL_CFLAGS += -DALIGN_DOUBLE
+ endif
+ LOCAL_CFLAGS += -Werror -fvisibility=protected
+ 
++LOCAL_SRC_FILES += MediatekHacks.cpp 
++
+ LOCAL_STATIC_LIBRARIES := \
+ 	libcutils \
+ 	libc
+diff --git a/libutils/MediatekHacks.cpp b/libutils/MediatekHacks.cpp
+new file mode 100644
+index 0000000..0efbde5
+--- /dev/null
++++ b/libutils/MediatekHacks.cpp
+@@ -0,0 +1,18 @@
++extern "C" {
++ void _ZN7android11IDumpTunnel11asInterfaceERKNS_2spINS_7IBinderEEE(){}
++ void _ZN7android9CallStackC1EPKci(char const*, int);
++ void _ZN7android9CallStack6updateEii(int, int);
++
++ void _ZN7android9CallStackC1EPKcii(char const* logtag, int ignoreDepth, int maxDepth){
++  maxDepth = maxDepth-1;
++  maxDepth = maxDepth+1;
++  _ZN7android9CallStackC1EPKci(logtag, ignoreDepth);
++  
++ }
++
++ void _ZN7android9CallStack6updateEiii(int ignoreDepth, int maxDepth, int tid){
++  maxDepth = maxDepth-1;
++  maxDepth = maxDepth+1; 
++  _ZN7android9CallStack6updateEii(ignoreDepth, tid);
++ }
++}
+\ No newline at end of file
+-- 
+2.7.4
+
