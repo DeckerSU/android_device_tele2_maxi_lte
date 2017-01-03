@@ -352,6 +352,4 @@ cm.updater.uri=https://localhost/decker/update-site/master/updates-14.1.json \
 # mrdump related
 PRODUCT_PACKAGES += \
     libmrdump \
-    mrdump_tool \
-    libcam.halsensor
-
+    mrdump_tool 

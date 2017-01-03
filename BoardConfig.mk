@@ -184,5 +184,4 @@ BOARD_HAS_MTK_HARDWARE := true
 #endif
 
 #https://forum.xda-developers.com/k3-note/orig-development/rom-custom-nougat-roms-k-3-note-t3513466
-
-USE_MTK_CAMERA_WRAPPER := true
+#USE_MTK_CAMERA_WRAPPER := true
