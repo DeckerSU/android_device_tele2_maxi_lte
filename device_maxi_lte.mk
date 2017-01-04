@@ -132,7 +132,7 @@ PRODUCT_COPY_FILES += \
 
 #PRODUCT_EXTRA_RECOVERY_KEYS += device/tele2/maxi_lte/tele2
 
-#$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 #$(call inherit-product, build/target/product/aosp_arm64.mk)
 
