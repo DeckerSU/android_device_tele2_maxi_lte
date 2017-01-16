@@ -20,8 +20,6 @@ https://github.com/danielhk/android_device_lenovo_aio_otfp/tree/9897899ab54fb70d
 Поэтому применить их нужно вручную.
 
 [4] libc/Android.mk
-# Define some common cflags
-# ========================================================
 libc_common_cflags := \
     -D_LIBC=1 \
     -Wall -Wextra -Wunused \
