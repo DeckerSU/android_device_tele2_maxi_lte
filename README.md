@@ -20,10 +20,11 @@ https://github.com/danielhk/android_device_lenovo_aio_otfp/tree/9897899ab54fb70d
 Поэтому применить их нужно вручную.
 
 [4] libc/Android.mk
-libc_common_cflags := \
-    -D_LIBC=1 \
-    -Wall -Wextra -Wunused \
-    -fno-stack-protector 
+
+    libc_common_cflags := \
+        -D_LIBC=1 \
+        -Wall -Wextra -Wunused \
+        -fno-stack-protector 
 
 А вот этот хак с fno-stack-protector в libc позволяет заставить работать blob libcam.halsensor.so от камеры так,
 как нужно ;)
@@ -32,13 +33,13 @@ libc_common_cflags := \
 
 В BoardConfig.mk:
 
-# Без нижеследующих трех строк 64-битные компоненты соберутся, однако при старте прошивки все равно
-# будут использоваться 32-битные бинарники. Например, Antutu Benchmark будет отображать 
-# прошивку как 32-битную.
+Без нижеследующих трех строк 64-битные компоненты соберутся, однако при старте прошивки все равно
+будут использоваться 32-битные бинарники. Например, Antutu Benchmark будет отображать 
+прошивку как 32-битную.
 
-TARGET_CPU_ABI_LIST_64_BIT := $(TARGET_CPU_ABI)
-TARGET_CPU_ABI_LIST_32_BIT := $(TARGET_2ND_CPU_ABI),$(TARGET_2ND_CPU_ABI2)
-TARGET_CPU_ABI_LIST := $(TARGET_CPU_ABI_LIST_64_BIT),$(TARGET_CPU_ABI_LIST_32_BIT)
+    TARGET_CPU_ABI_LIST_64_BIT := $(TARGET_CPU_ABI)
+    TARGET_CPU_ABI_LIST_32_BIT := $(TARGET_2ND_CPU_ABI),$(TARGET_2ND_CPU_ABI2)
+    TARGET_CPU_ABI_LIST := $(TARGET_CPU_ABI_LIST_64_BIT),$(TARGET_CPU_ABI_LIST_32_BIT)
 
 И в device_maxi_lte.mk ддя поддержки 64-bit zygote:
 
@@ -49,8 +50,8 @@ only have 64-bit jni dependencies weren't actually working correctly.
 
 Нужно еще раскомментировать:
 
-#$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
+    #$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 
 И возможно:
 
-#$(call inherit-product, build/target/product/aosp_arm64.mk)
+    #$(call inherit-product, build/target/product/aosp_arm64.mk)
