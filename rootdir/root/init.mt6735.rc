@@ -558,6 +558,7 @@ on post-fs-data
     chmod 0660 /dev/kd_camera_flashlight
     chmod 0660 /dev/kd_camera_hw_bus2
     chmod 0660 /dev/FM50AF
+    chmod 0660 /dev/DW9714AF
     chmod 0660 /dev/CAM_CAL_DRV
 
     chown system camera /dev/camera-sysram
@@ -765,9 +766,11 @@ on boot
     chown system /dev/ttyGS0
     chmod 660 /dev/ttyGS1
     chown system /dev/ttyGS1
-#yangjiajun@wind-mobi.com 2015-7-27 begin
-    setprop ro.meizu.hardware.psn ${ro.boot.psn}
-#yangjiajun@wind-mobi.com 2015-7-27 end
+
+
+# BT relayer mode USB VCOM
+    chown bluetooth radio /dev/ttyGS2
+    chmod 0660 /dev/ttyGS2
 
 on property:ro.board.platform=mt6753
     chown system system /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq

@@ -50,10 +50,8 @@ TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
 
 # Kernel
-BOARD_KERNEL_CMDLINE += \
-	bootopt=64S3,32N2,32N2 \
-	androidboot.selinux=permissive
-BOARD_KERNEL_BASE := 0x40000000
+BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2 androidboot.selinux=permissive
+BOARD_KERNEL_BASE := 0x40078000
 BOARD_KERNEL_PAGESIZE := 2048
 
 # make_ext4fs requires numbers in dec format
