@@ -214,6 +214,6 @@ PRODUCT_LOCALES := en_US en_GB ru_RU
 TARGET_SCREEN_HEIGHT := 1280
 TARGET_SCREEN_WIDTH := 720
 
-#$(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
+$(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
 # must enable for 2 Gb RAM - phone-xhdpi-2048-dalvik-heap.mk
-$(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
+#$(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
