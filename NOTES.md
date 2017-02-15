@@ -25,23 +25,24 @@ Stock:
 Note #3:
 
 adb shell getevent
-add device 1: /dev/input/event6
-  name:     "mtk-tpd-kpd"
-add device 2: /dev/input/event5
+/home/decker/cm-13.0/device/tele2/maxi_lte$ adb shell getevent
+add device 1: /dev/input/event6 
+  name:     "mtk-tpd-kpd" - отвечает за кнопки (!)
+add device 2: /dev/input/event5 
   name:     "mtk-tpd"
-add device 3: /dev/input/event4
-  name:     "m_acc_input"
-add device 4: /dev/input/event3
-  name:     "m_alsps_input"
-add device 5: /dev/input/event2
-  name:     "hwmdata"
-add device 6: /dev/input/event0
-  name:     "ACCDET"
-add device 7: /dev/input/event1
-  name:     "mtk-kpd"
+add device 3: /dev/input/event4 
+  name:     "m_acc_input" 
+add device 4: /dev/input/event3 
+  name:     "m_alsps_input" 
+add device 5: /dev/input/event2 
+  name:     "hwmdata" 
+add device 6: /dev/input/event0 
+  name:     "ACCDET" 
+add device 7: /dev/input/event1 
+  name:     "mtk-kpd" 
 
-adb shell getevent /dev/input/event5
+adb shell getevent /dev/input/event6
 
-139 - квадрат (MENU)
-172 - круг (HOME)
-158 - треугольник (BACK)
+(0x8b) 139 - квадрат (MENU)
+(0xac) 172 - круг (HOME)
+(0x9e) 158 - треугольник (BACK)
