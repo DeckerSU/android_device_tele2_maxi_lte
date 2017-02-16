@@ -1,5 +1,5 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
+#$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 #$(call inherit-product, build/target/product/aosp_arm64.mk)
 
@@ -222,7 +222,7 @@ $(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
 ## Statistics
 PRODUCT_PROPERTY_OVERRIDES += \
   ro.romstats.name=LineageOS \
-  ro.romstats.version=13.0_64_bit \
+  ro.romstats.version=13.0_32_bit \
   ro.romstats.tframe=7 
 PRODUCT_PACKAGES += \
 	RomStats
