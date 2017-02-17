@@ -226,11 +226,3 @@ PRODUCT_PROPERTY_OVERRIDES += \
   ro.romstats.tframe=7 
 PRODUCT_PACKAGES += \
 	RomStats
-
-## SU binaries and SuperSU
-WITH_SU := true
-
-# ifeq ($(WITH_SU),true)
-# PRODUCT_PACKAGES += \
-#	supersu
-# endif
