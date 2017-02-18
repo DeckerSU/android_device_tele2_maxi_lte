@@ -13,4 +13,6 @@ cd ../..
 cd packages/apps/Settings
 git apply -v --check ../../../device/tele2/maxi_lte/patches_decker/0005-add-author-info-in-device-info.patch
 cd ../../..
-
+cd frameworks/av
+git apply -v --check ../../device/tele2/maxi_lte/patches_decker/0006-fix-access-wvm-to-ReadOptions.patch
+cd ../..
