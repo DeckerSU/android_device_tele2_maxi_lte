@@ -10,4 +10,7 @@ cd ..
 cd system/sepolicy
 git apply -v ../../device/tele2/maxi_lte/patches_decker/0003-Revert-back-to-policy-version-29.patch
 cd ../..
+cd packages/apps/Settings
+git apply -v ../../../device/tele2/maxi_lte/patches_decker/0005-add-author-info-in-device-info.patch
+cd ../../..
 
