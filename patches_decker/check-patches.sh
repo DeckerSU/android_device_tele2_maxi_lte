@@ -15,4 +15,5 @@ git apply -v --check ../../../device/tele2/maxi_lte/patches_decker/0005-add-auth
 cd ../../..
 cd frameworks/av
 git apply -v --check ../../device/tele2/maxi_lte/patches_decker/0006-fix-access-wvm-to-ReadOptions.patch
+git apply -v --check ../../device/tele2/maxi_lte/patches_decker/0007-Disable-usage-of-get_capture_position.patch
 cd ../..
