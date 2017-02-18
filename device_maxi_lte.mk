@@ -226,3 +226,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
   ro.romstats.tframe=7 
 PRODUCT_PACKAGES += \
 	RomStats
+
+## CM14 mtk symbols
+PRODUCT_PACKAGES += \
+    libmtk_symbols
