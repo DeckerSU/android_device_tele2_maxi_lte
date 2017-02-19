@@ -164,7 +164,8 @@ on post-fs-data
 
 # GPS
     mkdir /data/gps_mnl 0771 gps system
-    mkdir /data/misc/gps 0770 gps system
+    mkdir /data/misc/gps 0771 gps system
+    restorecon_recursive /data/misc/gps
 
     # NFC
     mkdir /data/nfc_socket 0771 nfc radio

@@ -230,3 +230,8 @@ PRODUCT_PACKAGES += \
 ## CM14 mtk symbols
 PRODUCT_PACKAGES += \
     libmtk_symbols
+
+## GPS
+PRODUCT_PACKAGES += \
+    gps.mt6737m \
+    YGPS
