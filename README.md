@@ -57,3 +57,35 @@ Also remove some unneeded OMXCodec includes.
 
 https://github.com/LineageOS/android_frameworks_av/commit/6b0795009b8f53ab771e0074b76381977d016f4b
 
+---
+
+frameworks/base/services/core/jni/com_android_server_location_GnssLocationProvider.cpp 
+
+Invalid size of GnssSvStatus found: 8208
+
+static void gnss_sv_status_callback(GnssSvStatus* sv_status) {
+    JNIEnv* env = AndroidRuntime::getJNIEnv();
+    size_t status_size = sv_status->size;
+    // Check the size, and reject the object that has invalid size.
+    if (status_size != sizeof(GnssSvStatus)) {
+        ALOGE("[Decker] Invalid size of GnssSvStatus found: %zd. Need %zd.", status_size, sizeof(GnssSvStatus));
+        return;
+    }
+    sGnssSvListSize = sv_status->num_svs;
+    // Clamp the list size
+    if (sGnssSvListSize > GNSS_MAX_SATELLITE_COUNT) {
+        ALOGD("Too many satellites %zd. Clamps to %d.",
+              sGnssSvListSize,
+              GNSS_MAX_SATELLITE_COUNT);
+        sGnssSvListSize = GNSS_MAX_SATELLITE_COUNT;
+    }
+    // Copy GNSS SV info into sGnssSvList, if any.
+    if (sGnssSvListSize > 0) {
+        memcpy(sGnssSvList,
+               sv_status->gnss_sv_list,
+               sizeof(GnssSvInfo) * sGnssSvListSize);
+    }
+    env->CallVoidMethod(mCallbacksObj, method_reportSvStatus);
+    checkAndClearExceptionFromCallback(env, __FUNCTION__);
+}
+
