@@ -89,3 +89,19 @@ static void gnss_sv_status_callback(GnssSvStatus* sv_status) {
     checkAndClearExceptionFromCallback(env, __FUNCTION__);
 }
 
+---
+
+system/core
+
+--- a/init/init.cpp
++++ b/init/init.cpp
+@@ -85,7 +85,9 @@ static int have_console;
+ static char console_name[PROP_VALUE_MAX] = "/dev/console";
+ static time_t process_needs_restart;
+ 
+-static const char *ENV[32];
++// xen0n: some MTK services (e.g. ril-daemon-mtk) require very large number
++// of sockets, which can't be contained in 32 entries minus other variables.
++static const char *ENV[64];
+
+

@@ -235,3 +235,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     gps.mt6737m \
     YGPS
+
+## Allow IPv6 tethering (https://github.com/LineageOS/android_device_bq_paella/commit/b74a6486b83503116f5954d06cd1bcd6671b4fc0)
+#PRODUCT_PACKAGES += \
+#     ebtables \
+#     ethertypes

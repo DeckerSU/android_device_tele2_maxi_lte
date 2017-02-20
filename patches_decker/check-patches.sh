@@ -19,3 +19,6 @@ git apply -v --check ../../device/tele2/maxi_lte/patches_decker/0007-Disable-usa
 git apply -v --check ../../device/tele2/maxi_lte/patches_decker/0008-Partial-Revert-Camera1-API-Support-SW-encoders-for-n.patch
 git apply -v --check ../../device/tele2/maxi_lte/patches_decker/0009-add-mtk-color-format-support.patch
 cd ../..
+cd system/netd
+git apply -v --check ../../device/tele2/maxi_lte/patches_decker/0010-wifi-tethering-fix.patch
+cd ../..
