@@ -126,4 +126,92 @@ system/core
 	+// xen0n: some MTK services (e.g. ril-daemon-mtk) require very large number
 	+// of sockets, which can't be contained in 32 entries minus other variables.
 	+static const char *ENV[64];
+
+### Количество устройств подключенных к WiFi AP
+
+frameworks/base/services/core/java/com/android/server/connectivity/Tethering.java 	
+
+Все достаточно просто, для определения количества устройсв в шторке разбирается файл dhcpLocation = "/data/misc/dhcp/dnsmasq.leases" в readDeviceInfoFromDnsmasq. Строки имеют вид а-ля:
+
+	148763 f0:34:04:7e:42:1e 192.168.43.158 android-8f240c13289d40dd 01:f0:34:04:7e:42:1e
+	
+Ну и потом общее количество устройсв вычисляется как int size = mConnectedDeviceMap.size(); ... вот только почему-то судя по тому что в шторке отображается ноль устройств, mConnectedDeviceMap заполняется как-то некорректно. Включил отладочный лог:
+
+	    private final static String TAG = "Tethering";
+	    private final static boolean DBG = true;
+	    private final static boolean VDBG = true;
+    
+Посмотрим что к чему.
+    
+При подключении клиента или любой смене активности интерфейса ap0 вызывается:
+
+	    public void interfaceStatusChanged(String iface, boolean up) {
+	        // Never called directly: only called from interfaceLinkStateChanged.
+	        // See NetlinkHandler.cpp:71.
+	        if (VDBG) Log.d(TAG, "interfaceStatusChanged " + iface + ", " + up);
+	        synchronized (mPublicSync) {
+	            int interfaceType = ifaceNameToType(iface);
+	            if (interfaceType == ConnectivityManager.TETHERING_INVALID) {
+	                return;
+	            }
+    
+А в логе мы видим что-то вроде:
+
+	02-21 01:41:14.229   621   792 D Tethering: interfaceStatusChanged ap0, true 
+	02-21 01:42:13.112   621   792 D Tethering: interfaceStatusChanged ap0, true 
+	02-21 01:42:22.456   621   792 D Tethering: interfaceStatusChanged ap0, true 
+	
+Видимо потому что тип интерфейса приходит в состояние ConnectivityManager.TETHERING_INVALID, вернее ifaceNameToType возвращает его таким. А должно быть по идее ConnectivityManager.TETHERING_WIFI.  Что ж, посмотрим и в нее:
+
+	    private int ifaceNameToType(String iface) {
+	        if (isWifi(iface)) {
+	            return ConnectivityManager.TETHERING_WIFI; // (0)
+	        } else if (isUsb(iface)) {
+	            return ConnectivityManager.TETHERING_USB; // (1)
+	        } else if (isBluetooth(iface)) {
+	            return ConnectivityManager.TETHERING_BLUETOOTH; // (2)
+	        }
+	        return ConnectivityManager.TETHERING_INVALID; // (-1)
+	    }
+	
+Ага ... значит вызывается isWifi(iface), т.е. в нашем случае isWifi("ap0") ... глянем еще глубже ;)
+
+	    private boolean isWifi(String iface) {
+	        synchronized (mPublicSync) {
+	            for (String regex : mTetherableWifiRegexs) {
+	                if (iface.matches(regex)) return true;
+	            }
+	            return false;
+	        }
+	    }
+
+Ага ... значит имя интерфейса сверяется с regexp'ом ... и еще чуть глубже:
+
+mTetherableWifiRegexs <-- tetherableWifiRegexs, где последнее берется как:
+
+            tetherableWifiRegexs = mContext.getResources().getStringArray(
+                com.android.internal.R.array.config_tether_wifi_regexs);
+
+Ну собственно а кто против, давайте найдем и его.
+
+Ага:
+
+frameworks/base/core/res/res/values/config.xml 
+
+	    <string-array translatable="false" name="config_tether_wifi_regexs">
+	    </string-array>
+	    
+Чего здесь не хватает? Правильно. Нашего **ap0** ...
+
+Добавляем в device/tele2/maxi_lte/overlay/frameworks/base/core/res/res/values/config.xml строки:
+
+	    <string-array translatable="false" name="config_tether_wifi_regexs">
+	        <item>ap\\d</item>
+	    </string-array>
+
+Но ... шторка все равно пустая ... т.е. как было 0 подключений, так и осталось, даже при подключенных устройствах ...
+
+Ну по-крайней мере у нас теперь isWiFi("ap0") возвращает true, но **проблема все еще не решена** :((
+
+
 	
