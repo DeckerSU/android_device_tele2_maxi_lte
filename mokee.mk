@@ -4,7 +4,7 @@
 PRODUCT_RELEASE_NAME := maxi_lte
 
 # Inherit some common CM stuff.
-$(call inherit-product, vendor/cm/config/common_full_phone.mk)
+$(call inherit-product, vendor/mk/config/common_full_phone.mk)
 
 # Inherit device configuration
 $(call inherit-product, device/tele2/maxi_lte/device_maxi_lte.mk)

@@ -11,7 +11,7 @@ cd system/sepolicy
 git apply -v ../../device/tele2/maxi_lte/patches_decker/0003-Revert-back-to-policy-version-29.patch
 cd ../..
 cd packages/apps/Settings
-git apply -v ../../../device/tele2/maxi_lte/patches_decker/0005-add-author-info-in-device-info.patch
+#git apply -v ../../../device/tele2/maxi_lte/patches_decker/0005-add-author-info-in-device-info.patch
 cd ../../..
 cd frameworks/av
 git apply -v ../../device/tele2/maxi_lte/patches_decker/0006-fix-access-wvm-to-ReadOptions.patch
@@ -20,6 +20,6 @@ git apply -v ../../device/tele2/maxi_lte/patches_decker/0008-Partial-Revert-Came
 git apply -v ../../device/tele2/maxi_lte/patches_decker/0009-add-mtk-color-format-support.patch
 cd ../..
 cd system/netd
-git apply -v ../../device/tele2/maxi_lte/patches_decker/0010-wifi-tethering-fix.patch
+git apply -v ../../device/tele2/maxi_lte/patches_decker/0010-fix-wifi-tethering-patch-mokee.patch
 cd ../..
 

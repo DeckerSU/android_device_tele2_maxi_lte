@@ -221,8 +221,8 @@ $(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
 
 ## Statistics
 PRODUCT_PROPERTY_OVERRIDES += \
-  ro.romstats.name=LineageOS \
-  ro.romstats.version=14.0_64_bit \
+  ro.romstats.name=Mokee \
+  ro.romstats.version=7.1.1_64_bit \
   ro.romstats.tframe=7 
 PRODUCT_PACKAGES += \
 	RomStats
