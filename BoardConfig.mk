@@ -70,7 +70,7 @@ BOARD_CUSTOM_BOOTIMG := true
 TARGET_KMODULES := true
 
 # Assert
-TARGET_OTA_ASSERT_DEVICE := maxi_lte,maxi_lte_tele2,tele2_maxi_lte,tele2_maxi_lte,"Tele2 Maxi LTE"
+TARGET_OTA_ASSERT_DEVICE := maxi_lte,maxi_lte_tele2,tele2_maxi_lte,tele2_maxi_lte,"Tele2 Maxi LTE",joyasz6737m_65_m0
 
 #COMMON_GLOBAL_CFLAGS += -DDISABLE_HW_ID_MATCH_CHECK
 TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
