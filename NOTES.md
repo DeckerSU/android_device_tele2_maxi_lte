@@ -213,5 +213,223 @@ frameworks/base/core/res/res/values/config.xml
 
 Ну по-крайней мере у нас теперь isWiFi("ap0") возвращает true, но **проблема все еще не решена** :((
 
+###VP9 OMX Decoder
 
+Original CM 14.1 Sources:
+
+	typedef enum OMX_COLOR_FORMATTYPE {
+	    OMX_COLOR_FormatUnused, /* 0x00 */
+	    OMX_COLOR_FormatMonochrome, /* 0x01 */
+	    OMX_COLOR_Format8bitRGB332, /* 0x02 */
+	    OMX_COLOR_Format12bitRGB444, /* 0x03 */
+	    OMX_COLOR_Format16bitARGB4444, /* 0x04 */
+	    OMX_COLOR_Format16bitARGB1555, /* 0x05 */
+	    OMX_COLOR_Format16bitRGB565, /* 0x06 */
+	    OMX_COLOR_Format16bitBGR565, /* 0x07 */
+	    OMX_COLOR_Format18bitRGB666, /* 0x08 */
+	    OMX_COLOR_Format18bitARGB1665, /* 0x09 */
+	    OMX_COLOR_Format19bitARGB1666, /* 0x0A */
+	    OMX_COLOR_Format24bitRGB888, /* 0x0B */
+	    OMX_COLOR_Format24bitBGR888, /* 0x0C */
+	    OMX_COLOR_Format24bitARGB1887, /* 0x0D */
+	    OMX_COLOR_Format25bitARGB1888, /* 0x0E */
+	    OMX_COLOR_Format32bitBGRA8888, /* 0x0F */
+	    OMX_COLOR_Format32bitARGB8888, /* 0x10 */
+	    OMX_COLOR_FormatYUV411Planar, /* 0x11 */
+	    OMX_COLOR_FormatYUV411PackedPlanar, /* 0x12 */
+	    OMX_COLOR_FormatYUV420Planar, /* 0x13 */
+	    OMX_COLOR_FormatYUV420PackedPlanar, /* 0x14 */
+	    OMX_COLOR_FormatYUV420SemiPlanar, /* 0x15 */
+	    OMX_COLOR_FormatYUV422Planar, /* 0x16 */
+	    OMX_COLOR_FormatYUV422PackedPlanar, /* 0x17 */
+	    OMX_COLOR_FormatYUV422SemiPlanar, /* 0x18 */
+	    OMX_COLOR_FormatYCbYCr, /* 0x19 */
+	    OMX_COLOR_FormatYCrYCb, /* 0x1A */
+	    OMX_COLOR_FormatCbYCrY, /* 0x1B */
+	    OMX_COLOR_FormatCrYCbY, /* 0x1C */
+	    OMX_COLOR_FormatYUV444Interleaved, /* 0x1D */
+	    OMX_COLOR_FormatRawBayer8bit, /* 0x1E */
+	    OMX_COLOR_FormatRawBayer10bit, /* 0x1F */
+	    OMX_COLOR_FormatRawBayer8bitcompressed, /* 0x20 */
+	    OMX_COLOR_FormatL2, /* 0x21 */
+	    OMX_COLOR_FormatL4, /* 0x22 */
+	    OMX_COLOR_FormatL8, /* 0x23 */
+	    OMX_COLOR_FormatL16,
+	    OMX_COLOR_FormatL24,
+	    OMX_COLOR_FormatL32,
+	    OMX_COLOR_FormatYUV420PackedSemiPlanar,
+	    OMX_COLOR_FormatYUV422PackedSemiPlanar,
+	    OMX_COLOR_Format18BitBGR666,
+	    OMX_COLOR_Format24BitARGB6666,
+	    OMX_COLOR_Format24BitABGR6666,
+	    OMX_COLOR_FormatKhronosExtensions = 0x6F000000, /**< Reserved region for introducing Khronos Standard Extensions */
+	    OMX_COLOR_FormatVendorStartUnused = 0x7F000000, /**< Reserved region for introducing Vendor Extensions */
+	    /**<Reserved android opaque colorformat. Tells the encoder that
+	     * the actual colorformat will be  relayed by the
+	     * Gralloc Buffers.
+	     * FIXME: In the process of reserving some enum values for
+	     * Android-specific OMX IL colorformats. Change this enum to
+	     * an acceptable range once that is done.
+	     * */
+	    OMX_COLOR_FormatAndroidOpaque = 0x7F000789,
+	    OMX_COLOR_Format32BitRGBA8888 = 0x7F00A000,
+	    /** Flexible 8-bit YUV format.  Codec should report this format
+	     *  as being supported if it supports any YUV420 packed planar
+	     *  or semiplanar formats.  When port is set to use this format,
+	     *  codec can substitute any YUV420 packed planar or semiplanar
+	     *  format for it. */
+	    OMX_COLOR_FormatYUV420Flexible = 0x7F420888,
 	
+	    OMX_TI_COLOR_FormatYUV420PackedSemiPlanar = 0x7F000100,
+	    OMX_QCOM_COLOR_FormatYVU420SemiPlanar = 0x7FA30C00,
+	    OMX_QCOM_COLOR_FormatYUV420PackedSemiPlanar64x32Tile2m8ka = 0x7FA30C03,
+	    OMX_SEC_COLOR_FormatNV12Tiled = 0x7FC00002,
+	    OMX_QCOM_COLOR_FormatYUV420PackedSemiPlanar32m = 0x7FA30C04,
+	    OMX_COLOR_FormatMax = 0x7FFFFFFF
+	} OMX_COLOR_FORMATTYPE;
+	
+
+MTK Sources:
+
+**vendor/mediatek/proprietary/frameworks/native/include/media/openmax/OMX_IVCommon.h **
+
+	typedef enum OMX_COLOR_FORMATTYPE {
+	    OMX_COLOR_FormatUnused,
+	    OMX_COLOR_FormatMonochrome,
+	    OMX_COLOR_Format8bitRGB332,
+	    OMX_COLOR_Format12bitRGB444,
+	    OMX_COLOR_Format16bitARGB4444,
+	    OMX_COLOR_Format16bitARGB1555,
+	    OMX_COLOR_Format16bitRGB565,
+	    OMX_COLOR_Format16bitBGR565,
+	    OMX_COLOR_Format18bitRGB666,
+	    OMX_COLOR_Format18bitARGB1665,
+	    OMX_COLOR_Format19bitARGB1666,
+	    OMX_COLOR_Format24bitRGB888,
+	    OMX_COLOR_Format24bitBGR888,
+	    OMX_COLOR_Format24bitARGB1887,
+	    OMX_COLOR_Format25bitARGB1888,
+	    OMX_COLOR_Format32bitBGRA8888,
+	    OMX_COLOR_Format32bitARGB8888,
+	    OMX_COLOR_FormatYUV411Planar,
+	    OMX_COLOR_FormatYUV411PackedPlanar,
+	    OMX_COLOR_FormatYUV420Planar,
+	    OMX_COLOR_FormatYUV420PackedPlanar,
+	    OMX_COLOR_FormatYUV420SemiPlanar,
+	    OMX_COLOR_FormatYUV422Planar,
+	    OMX_COLOR_FormatYUV422PackedPlanar,
+	    OMX_COLOR_FormatYUV422SemiPlanar,
+	    OMX_COLOR_FormatYCbYCr,
+	    OMX_COLOR_FormatYCrYCb,
+	    OMX_COLOR_FormatCbYCrY,
+	    OMX_COLOR_FormatCrYCbY,
+	    OMX_COLOR_FormatYUV444Interleaved,
+	    OMX_COLOR_FormatRawBayer8bit,
+	    OMX_COLOR_FormatRawBayer10bit,
+	    OMX_COLOR_FormatRawBayer8bitcompressed,
+	    OMX_COLOR_FormatL2,
+	    OMX_COLOR_FormatL4,
+	    OMX_COLOR_FormatL8,
+	    OMX_COLOR_FormatL16,
+	    OMX_COLOR_FormatL24,
+	    OMX_COLOR_FormatL32,
+	    OMX_COLOR_FormatYUV420PackedSemiPlanar,
+	    OMX_COLOR_FormatYUV422PackedSemiPlanar,
+	    OMX_COLOR_Format18BitBGR666,
+	    OMX_COLOR_Format24BitARGB6666,
+	    OMX_COLOR_Format24BitABGR6666,
+	    OMX_COLOR_FormatKhronosExtensions = 0x6F000000, /**< Reserved region for introducing Khronos Standard Extensions */
+	    OMX_COLOR_FormatVendorStartUnused = 0x7F000000, /**< Reserved region for introducing Vendor Extensions */
+	    OMX_COLOR_FormatVendorMTKYUV = 0x7F000001,
+	    OMX_COLOR_FormatVendorMTKYUV_FCM = 0x7F000002,
+	    OMX_COLOR_FormatVendorMTKYUV_UFO = 0x7F000003,
+	    OMX_COLOR_FormatVendorMTKYUV_10BIT_H = 0x7F000004,
+	    OMX_COLOR_FormatVendorMTKYUV_10BIT_V = 0x7F000005,
+	    OMX_COLOR_FormatVendorMTKYUV_UFO_10BIT_H = 0x7F000006,
+	    OMX_COLOR_FormatVendorMTKYUV_UFO_10BIT_V = 0x7F000007,
+	    /**<Reserved android opaque colorformat. Tells the encoder that
+	     * the actual colorformat will be  relayed by the
+	     * Gralloc Buffers.
+	     * FIXME: In the process of reserving some enum values for
+	     * Android-specific OMX IL colorformats. Change this enum to
+	     * an acceptable range once that is done.
+	     * */
+	    OMX_COLOR_FormatAndroidOpaque = 0x7F000789,
+	    OMX_COLOR_Format32BitRGBA8888 = 0x7F00A000,
+	    /** Flexible 8-bit YUV format.  Codec should report this format
+	     *  as being supported if it supports any YUV420 packed planar
+	     *  or semiplanar formats.  When port is set to use this format,
+	     *  codec can substitute any YUV420 packed planar or semiplanar
+	     *  format for it. */
+	    OMX_COLOR_FormatYUV420Flexible = 0x7F420888,
+	
+	    OMX_TI_COLOR_FormatYUV420PackedSemiPlanar = 0x7F000100,
+	    OMX_MTK_COLOR_FormatYV12 = 0x7F000200,
+	    OMX_MTK_COLOR_FormatBitStream = 0x7F000300,
+	    OMX_QCOM_COLOR_FormatYVU420SemiPlanar = 0x7FA30C00,
+	    OMX_QCOM_COLOR_FormatYUV420PackedSemiPlanar64x32Tile2m8ka = 0x7FA30C03,
+	    OMX_SEC_COLOR_FormatNV12Tiled = 0x7FC00002,
+	    OMX_QCOM_COLOR_FormatYUV420PackedSemiPlanar32m = 0x7FA30C04,
+	    OMX_COLOR_FormatMax = 0x7FFFFFFF
+	} OMX_COLOR_FORMATTYPE;
+
+
+...
+
+ACodec.cpp:
+
+
+	02-24 19:58:46.442   362   430 D MtkOmxVdecEx: [0xf4cd9000] mOutputPortDef eColorFormat(13), eColorFormat(7f000200), meDecodeType(1), mForceOutputBufferCount(0), mIsUsingNativeBuffers(1)
+	02-24 19:58:46.442   362   430 D MtkOmxVdecEx: [0xf4cd9000] [STANDARD][HAL_PIXEL_FORMAT_YV12] -> HAL_PIXEL_FORMAT_YCbCr_420_888
+	02-24 19:58:46.442   362   430 D MtkOmxVdecEx: [0xf4cd9000] 32x32 Aligned! mOutputPortDef.nBufferSize(369600), nStride(640), nSliceHeight(384) nBufferCountActual(11)
+	02-24 19:58:46.443   362  1047 D MtkOmxVdecEx: [0xf4cd9000] GP (0x7F000006)
+	02-24 19:58:46.444  2762  3109 E ACodec  : [Decker] b: setHalWindowColorFormat(0x23) - OMX.MTK.VIDEO.DECODER.VP9
+	02-24 19:58:46.444  2762  3109 E ACodec  : [Decker] e: setHalWindowColorFormat(0x32315669) - OMX.MTK.VIDEO.DECODER.VP9
+	02-24 19:58:46.445  2762  3109 D SurfaceUtils: set up nativeWindow 0x7f89590810 for 640x360, color 0x32315669, rotation 0, usage 0x2933
+	
+...
+
+В итоге помог такой временный патч в frameworks/av/media/libstagefright/ACodec.cpp :
+
+
+	#define HAL_PIXEL_FORMAT_NV12_BLK 0x7F000001
+	#define HAL_PIXEL_FORMAT_I420 (0x32315659 + 0x10)
+	#define HAL_PIXEL_FORMAT_YUV_PRIVATE (0x32315659 + 0x20)
+
+И:
+
+	#ifdef MTK_HARDWARE
+	void ACodec::setHalWindowColorFormat(OMX_COLOR_FORMATTYPE &eHalColorFormat) {
+	    ALOGE("[Decker] setHalWindowColorFormat(%#x) - %s",eHalColorFormat,mComponentName.c_str());
+	
+	    if (!strncmp("OMX.MTK.", mComponentName.c_str(), 8)) {
+	        switch (eHalColorFormat) {
+	            case OMX_COLOR_FormatYUV420Planar:
+	                eHalColorFormat = (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_I420;
+	                break;
+	            case OMX_MTK_COLOR_FormatYV12:
+	                eHalColorFormat = (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_YV12;
+	                break;
+	            case OMX_COLOR_FormatVendorMTKYUV:
+	                eHalColorFormat = (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_NV12_BLK;
+	                break;
+	            default:
+			if (!strcasecmp(mComponentName.c_str(), "OMX.MTK.VIDEO.DECODER.VP9")) {
+				ALOGE("[Decker] OMX.MTK.VIDEO.DECODER.VP9 detected ... change Hal Color Format ...");
+				eHalColorFormat = (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_YUV_PRIVATE;
+			} else
+	                eHalColorFormat = (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_I420;
+	
+	                break;
+	        }
+	    }
+	}
+	#endif
+
+Т.е. фактически мы объявили новый eHalColorFormat = HAL_PIXEL_FORMAT_YUV_PRIVATE и в setHalWindowColorFormat, который уже был добавлен в одном из патчей сделали проверку, если декодирование у нас осуществляется с помощью OMX.MTK.VIDEO.DECODER.VP9, то устанавливаем eHalColorFormat как HAL_PIXEL_FORMAT_YUV_PRIVATE.
+
+Напомню что HAL_PIXEL_FORMAT_YUV_PRIVATE объявлен в ALPS в vendor/mediatek/proprietary/hardware/gralloc_extra/include/graphics_mtk_defs.h как:
+
+	HAL_PIXEL_FORMAT_YUV_PRIVATE    = 0x32315659 + 0x20,                 /// I420 or NV12_BLK or NV12_BLK_FCM
+
+
