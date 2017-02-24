@@ -3,6 +3,7 @@ cd ../../../..
 cd system/core
 git apply -v ../../device/tele2/maxi_lte/patches_decker/0001-Remove-CAP_SYS_NICE-from-surfaceflinger.patch
 git apply -v ../../device/tele2/maxi_lte/patches_decker/0004-libnetutils-add-MTK-bits-ifc_ccmni_md_cfg.patch
+git apply -v ../../device/tele2/maxi_lte/patches_decker/0012-PATCH-xen0n-some-MTK-services-e.g.-ril-daemon-mtk-re.patch
 cd ../..
 cd bionic
 git apply -v ../device/tele2/maxi_lte/patches_decker/0002-Apply-LIBC-version-to-__pthread_gettid.patch
